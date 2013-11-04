@@ -58,7 +58,7 @@ Rectangle {
 
     Rectangle {
         property variant geometry: screenModel.geometry(screenModel.primary)
-        x: geometry.x; y: geometry.y; width: geometry.width; height: geometry.height
+        x: geometry.x; y: geometry.y; width: geometry.width; height:geometry.height
         color: "transparent"
 
         Component {
@@ -161,6 +161,7 @@ Rectangle {
                     font.pixelSize: 20
                 }
             }
+            
         }
 
         Rectangle {
@@ -225,6 +226,15 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.margins: 5
                 spacing: 5
+                ImageButton {
+                    id: btnKeyboard
+                    height: parent.height
+                    source: "keyboard.png"
+
+                    onClicked: vkbd.visible = !vkbd.visible
+
+                    KeyNavigation.backtab: layoutBox; KeyNavigation.tab: btnShutdown
+                }
 
                 ImageButton {
                     id: btnReboot
@@ -251,5 +261,12 @@ Rectangle {
                 }
             }
         }
+    }
+    VirtualKeyboard {
+      id: vkbd
+      visible: false
+      anchors.right: parent.right
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
     }
 }

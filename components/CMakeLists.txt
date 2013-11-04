@@ -5,6 +5,7 @@ endif()
 configure_file(${COMPONENTS_VERSION}/LayoutBox.qml ${COMPONENTS_VERSION}/LayoutBox.qml)
 configure_file(common/TextConstants.qml common/TextConstants.qml)
 configure_file(common/qmldir common/qmldir)
+configure_file(common/VirtualKeyboard.qml common/VirtualKeyboard.qml)
 
 install(DIRECTORY ${COMPONENTS_VERSION}/ DESTINATION ${QT_IMPORTS_DIR}/SddmComponents)
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${COMPONENTS_VERSION}/ DESTINATION ${QT_IMPORTS_DIR}/SddmComponents)
