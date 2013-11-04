@@ -58,7 +58,7 @@ Rectangle {
 
     Rectangle {
         property variant geometry: screenModel.geometry(screenModel.primary)
-        x: geometry.x; y: geometry.y; width: geometry.width; height:geometry.height
+        x: geometry.x; y: geometry.y; width: geometry.width; height: geometry.height
         color: "transparent"
 
         Component {
