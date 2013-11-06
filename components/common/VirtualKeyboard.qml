@@ -1,11 +1,20 @@
 import QtQuick ${COMPONENTS_VERSION}
 
 Rectangle{
+  property bool loaded
+
   id: keyboard
-  property string _import: "sandkeys.theme.ClassicBlack 1.0"
-  property string _component: "ClassicBlackKeyboard"
+  property string _import
+  property string _component
   Component.onCompleted: {
+      console.debug("import QtQuick ${COMPONENTS_VERSION}; import "+_import+";"+_component + "{ }")
     var kbd = Qt.createQmlObject("import QtQuick ${COMPONENTS_VERSION}; import "+_import+";"+_component + "{ }",keyboard);
+    if (kbd){
+        loaded = true
+    } else {
+        loaded = false
+        return
+    }
     keyboard.height = kbd.height
     keyboard.width = kbd.width
     kbd.anchors.fill = keyboard

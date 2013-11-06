@@ -44,6 +44,9 @@ FacesDir=${DATA_INSTALL_DIR}/faces
 # Path of the directory containing theme files
 ThemesDir=${DATA_INSTALL_DIR}/themes
 
+# Path of the directory containing wrapper files
+WrapperDir=${DATA_INSTALL_DIR}/wrapper
+
 # Name of the current theme
 CurrentTheme=maui
 

@@ -62,6 +62,7 @@ namespace SDDM {
         const QString &facesDir() const;
 
         const QString &themesDir() const;
+        const QString &wrapperDir() const;
         const QString &currentTheme() const;
         QString currentThemePath() const;
 

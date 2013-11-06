@@ -193,6 +193,7 @@ namespace SDDM {
         m_greeter->setAuthPath(m_authPath);
         m_greeter->setSocket(m_socket);
         m_greeter->setTheme(QString("%1/%2").arg(daemonApp->configuration()->themesDir()).arg(daemonApp->configuration()->currentTheme()));
+        m_greeter->setWrapper(daemonApp->configuration()->wrapperDir());
 
         // start greeter
         m_greeter->start();

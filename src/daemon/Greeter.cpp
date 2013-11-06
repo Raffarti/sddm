@@ -50,6 +50,11 @@ namespace SDDM {
         m_theme = theme;
     }
 
+    void Greeter::setWrapper(const QString &wrapper)
+    {
+        m_wrapper = wrapper;
+    }
+
     bool Greeter::start() {
         // check flag
         if (m_started)
@@ -72,7 +77,7 @@ namespace SDDM {
         m_process->setProcessEnvironment(env);
 
         // start greeter
-        m_process->start(QString("%1/sddm-greeter").arg(BIN_INSTALL_DIR), { "--socket", m_socket, "--theme", m_theme });
+        m_process->start(QString("%1/sddm-greeter").arg(BIN_INSTALL_DIR), { "--socket", m_socket, "--theme", m_theme, "--wrapper", m_wrapper });
 
         // wait for greeter to start
         if (!m_process->waitForStarted()) {

@@ -17,43 +17,17 @@
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ***************************************************************************/
 
-#ifndef SDDM_GREETER_H
-#define SDDM_GREETER_H
+#include "WrapperConfig.h"
 
-#include <QObject>
-
-class QProcess;
+#include <QSettings>
+#include <QStringList>
 
 namespace SDDM {
-    class Greeter : public QObject {
-        Q_OBJECT
-        Q_DISABLE_COPY(Greeter)
-    public:
-        explicit Greeter(QObject *parent = 0);
-        ~Greeter();
+    WrapperConfig::WrapperConfig(const QString &path) {
+        QSettings settings(path, QSettings::IniFormat);
 
-        void setDisplay(const QString &display);
-        void setAuthPath(const QString &authPath);
-        void setSocket(const QString &socket);
-        void setTheme(const QString &theme);
-        void setWrapper(const QString &wrapper);
-
-    public slots:
-        bool start();
-        void stop();
-        void finished();
-
-    private:
-        bool m_started { false };
-
-        QString m_display { "" };
-        QString m_authPath { "" };
-        QString m_socket { "" };
-        QString m_theme { "" };
-        QString m_wrapper { "" };
-
-        QProcess *m_process { nullptr };
-    };
+        // read keys
+        for (const QString &key: settings.allKeys())
+            insert(key, settings.value(key));
+    }
 }
-
-#endif // SDDM_GREETER_H

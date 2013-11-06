@@ -31,6 +31,7 @@
 class QTranslator;
 
 namespace SDDM {
+    class WrapperConfig;
     class Configuration;
     class ThemeMetadata;
     class ThemeConfig;
@@ -73,6 +74,7 @@ namespace SDDM {
         Configuration *m_configuration { nullptr };
         ThemeMetadata *m_metadata { nullptr };
         ThemeConfig *m_themeConfig { nullptr };
+        WrapperConfig *m_wrapperConfig { nullptr };
         SessionModel *m_sessionModel { nullptr };
         ScreenModel *m_screenModel { nullptr  };
         UserModel *m_userModel { nullptr };

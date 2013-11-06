@@ -231,9 +231,9 @@ Rectangle {
                     height: parent.height
                     source: "keyboard.png"
 
-                    onClicked: vkbd.visible = !vkbd.visible
+                    onClicked: toggleKeyboard(!isKeyboardVisible())
 
-                    KeyNavigation.backtab: layoutBox; KeyNavigation.tab: btnShutdown
+                    KeyNavigation.backtab: layoutBox; KeyNavigation.tab: btnReboot
                 }
 
                 ImageButton {
@@ -245,7 +245,7 @@ Rectangle {
 
                     onClicked: sddm.reboot()
 
-                    KeyNavigation.backtab: layoutBox; KeyNavigation.tab: btnShutdown
+                    KeyNavigation.backtab: btnKeyboard; KeyNavigation.tab: btnShutdown
                 }
 
                 ImageButton {
@@ -261,12 +261,5 @@ Rectangle {
                 }
             }
         }
-    }
-    VirtualKeyboard {
-      id: vkbd
-      visible: false
-      anchors.right: parent.right
-      anchors.left: parent.left
-      anchors.bottom: parent.bottom
     }
 }

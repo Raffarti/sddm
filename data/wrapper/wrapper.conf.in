@@ -1,0 +1,3 @@
+[Keyboard]
+KeyboardImport="sandkeys.theme.ClassicBlack 1.0"
+KeyboardComponent="ClassicBlackKeyboard"

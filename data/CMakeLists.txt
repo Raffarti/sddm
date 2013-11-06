@@ -15,3 +15,4 @@ install(FILES scripts/Xsession DESTINATION ${DATA_INSTALL_DIR}/scripts
 
 add_subdirectory(themes)
 add_subdirectory(translations)
+add_subdirectory(wrapper)

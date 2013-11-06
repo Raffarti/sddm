@@ -27,6 +27,7 @@
 #include "ThemeMetadata.h"
 #include "UserModel.h"
 #include "KeyboardModel.h"
+#include "WrapperConfig.h"
 
 #ifdef USE_QT5
 #include "MessageHandler.h"
@@ -81,9 +82,13 @@ namespace SDDM {
 
         // get socket name
         QString socket = parameter(arguments(), "--socket", "");
-
+        
         // get theme path
         QString themePath = parameter(arguments(), "--theme", "");
+        
+        // get qml wrapper path
+        QString wrapperPath = parameter(arguments(), "--wrapper", "");
+        // get
 
         // Initialize
     #ifdef USE_QT5
@@ -115,12 +120,16 @@ namespace SDDM {
         if (m_theme_translator->load(QLocale::system(), "", "",
                            QString("%1/%2/").arg(themePath, m_metadata->translationsDirectory())))
             installTranslator(m_theme_translator);
-
+        
         // get theme config file
         QString configFile = QString("%1/%2").arg(themePath).arg(m_metadata->configFile());
-
+        // get wrapper config file
+        QString wrapperConfigFile = QString("%1/%2").arg(wrapperPath).arg("wrapper.conf");
+        
         // read theme config
         m_themeConfig = new ThemeConfig(configFile);
+        // read theme config
+        m_wrapperConfig = new WrapperConfig(wrapperConfigFile);
 
         // create models
 
@@ -155,12 +164,16 @@ namespace SDDM {
         m_view->rootContext()->setContextProperty("config", *m_themeConfig);
         m_view->rootContext()->setContextProperty("sddm", m_proxy);
         m_view->rootContext()->setContextProperty("keyboard", m_keyboard);
+        m_view->rootContext()->setContextProperty("kbd_import", m_wrapperConfig->value("Keyboard/KeyboardImport"));
+        m_view->rootContext()->setContextProperty("kbd_component", m_wrapperConfig->value("Keyboard/KeyboardComponent"));
 
         // get theme main script
         QString mainScript = QString("%1/%2").arg(themePath).arg(m_metadata->mainScript());
+        m_view->rootContext()->setContextProperty("themePath", mainScript);
 
         // set main script as source
-        m_view->setSource(QUrl::fromLocalFile(mainScript));
+        m_view->setSource(QUrl::fromLocalFile(QString(wrapperPath).append("/Wrapper.qml")));
+        
 
         // connect screen update signals
         connect(m_screenModel, SIGNAL(primaryChanged()), this, SLOT(show()));
@@ -195,6 +208,7 @@ int main(int argc, char **argv) {
                      "Options: \n"
                      "  --theme <theme path>       Set greeter theme\n"
                      "  --socket <socket name>     Set socket name\n"
+                     "  --wrapper <wrapper path>   Set wrapper path\n"
                      "  --test                     Testing mode" << std::endl;
 
         return EXIT_FAILURE;

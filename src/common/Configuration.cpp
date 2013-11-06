@@ -61,6 +61,7 @@ namespace SDDM {
 
         QString autoUser { "" };
         bool autoRelogin { false };
+        QString wrapperDir { "" };
 
         Configuration::NumState numlock { Configuration::NUM_NONE };
     };
@@ -112,6 +113,7 @@ namespace SDDM {
         d->lastUser = settings.value("LastUser", "").toString();
         d->autoUser = settings.value("AutoUser", "").toString();
         d->autoRelogin = settings.value("AutoRelogin", d->autoRelogin).toBool();
+        d->wrapperDir = settings.value("WrapperDir", "").toString();
         minimumVT = settings.value("MinimumVT", minimumVT).toUInt();
 
         QString num_val = settings.value("Numlock", "none").toString().toLower();
@@ -215,6 +217,9 @@ namespace SDDM {
 
     const QString &Configuration::themesDir() const {
         return d->themesDir;
+    }
+    const QString &Configuration::wrapperDir() const {
+        return d->wrapperDir;
     }
 
     const QString &Configuration::currentTheme() const {

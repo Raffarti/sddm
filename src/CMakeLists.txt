@@ -68,6 +68,7 @@ set(GREETER_SOURCES
     greeter/ThemeConfig.cpp
     greeter/ThemeMetadata.cpp
     greeter/UserModel.cpp
+    greeter/WrapperConfig.cpp
 )
 
 if(USE_QT5)
