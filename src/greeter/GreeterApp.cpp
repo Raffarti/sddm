@@ -82,7 +82,7 @@ namespace SDDM {
 
         // get socket name
         QString socket = parameter(arguments(), "--socket", "");
-        
+
         // get theme path
         QString themePath = parameter(arguments(), "--theme", "");
         
@@ -120,9 +120,10 @@ namespace SDDM {
         if (m_theme_translator->load(QLocale::system(), "", "",
                            QString("%1/%2/").arg(themePath, m_metadata->translationsDirectory())))
             installTranslator(m_theme_translator);
-        
+
         // get theme config file
         QString configFile = QString("%1/%2").arg(themePath).arg(m_metadata->configFile());
+
         // get wrapper config file
         QString wrapperConfigFile = QString("%1/%2").arg(wrapperPath).arg("wrapper.conf");
         
@@ -173,7 +174,6 @@ namespace SDDM {
 
         // set main script as source
         m_view->setSource(QUrl::fromLocalFile(QString(wrapperPath).append("/Wrapper.qml")));
-        
 
         // connect screen update signals
         connect(m_screenModel, SIGNAL(primaryChanged()), this, SLOT(show()));
