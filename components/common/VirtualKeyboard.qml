@@ -7,7 +7,6 @@ Rectangle{
   property string _import
   property string _component
   Component.onCompleted: {
-      console.debug("import QtQuick ${COMPONENTS_VERSION}; import "+_import+";"+_component + "{ }")
     var kbd = Qt.createQmlObject("import QtQuick ${COMPONENTS_VERSION}; import "+_import+";"+_component + "{ }",keyboard);
     if (kbd){
         loaded = true
