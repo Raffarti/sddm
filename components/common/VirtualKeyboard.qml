@@ -14,8 +14,8 @@ Rectangle{
         loaded = false
         return
     }
-    keyboard.height = kbd.height
-    keyboard.width = kbd.width
+    keyboard.implicitHeight = kbd.height
+    keyboard.implicitWidth = kbd.width
     kbd.anchors.fill = keyboard
   }
 }
