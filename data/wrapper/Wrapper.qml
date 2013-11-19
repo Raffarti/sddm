@@ -3,8 +3,11 @@ import QtQuick ${COMPONENTS_VERSION}
 import SddmComponents ${COMPONENTS_VERSION}
 
 Rectangle {
-  width: screenModel.geometry.width
-  height: screenModel.geometry.height
+  property variant geometry: screenModel.geometry(screenModel.primary)
+  width: geometry.width
+  height: geometry.height
+  x: geometry.x
+  y: geometry.y
   color: "transparent"
 
   Rectangle {
