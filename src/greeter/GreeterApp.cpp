@@ -180,14 +180,14 @@ namespace SDDM {
 
         show();
 #ifndef USE_QT5
-        m_view->showFullScreen();
+        m_view->show();
 #endif
     }
 
     void GreeterApp::show() {
         m_view->setGeometry(m_screenModel->geometry());
 #ifdef USE_QT5
-        m_view->showFullScreen();
+        m_view->show();
 #endif
     }
 
