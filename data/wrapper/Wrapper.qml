@@ -1,4 +1,3 @@
-
 import QtQuick ${COMPONENTS_VERSION}
 import SddmComponents ${COMPONENTS_VERSION}
 
@@ -12,51 +11,51 @@ Rectangle {
 
   Rectangle {
     id: container
-    anchors.top: parent.top
-    anchors.right: parent.right
-    anchors.left: parent.left
-    anchors. bottom: vkbd.top
     
     Component.onCompleted: {
       var comp = Qt.createComponent(themePath)
       var theme = comp.createObject(container)
-      theme.anchors.fill = container
     }
   }
   
   VirtualKeyboard{
     id: vkbd
-    anchors.bottom: parent.bottom
-    anchors.right: parent.right
-    anchors.left: parent.left
+    startupLoad: false
+    anchors.top: vkbd_btn.bottom
+    anchors.left: vkbd_btn.left
     
-    visible: false
-    height: 0
 
     _import: kbd_import
     _component: kbd_component
   }
-
-  function isKeyboardLoaded(){
-      return vkbd.loaded
+  Rectangle {
+    id: vkbd_state
+    color: "#80FFFFFF"
+    
+    width: 450
+    height: 150
+    anchors.top: vkbd_btn.bottom
+    anchors.left: vkbd_btn.left
+    Text {
+      anchors.fill: parent
+      font.pointSize: 20
+      horizontalAlignment: Text.AlignHCenter
+      verticalAlignment: Text.AlignVCenter
+      
+      color: "red"
+      
+      text: "Cannot display the virtual keyboard,<br>'" + kbd_import + "'<br> is not installed or fails to load."
+      
+    }
   }
-
-  function isKeyboardVisible(){
-      return isKeyboardLoaded() && vkbd.visible
-  }
-
-  function toggleKeyboard(visible){
-      vkbd.visible = visible
-      vkbd.height = visible?vkbd.implicitHeight:0
-  }
-
+  
   Rectangle {
       visible: !config.hideDefaultKeyboardBtn
       id: vkbd_btn
 
+      x: 0
+      y: geometry.height - height
       color: "#000000"
-      anchors.left: parent.left
-      anchors.bottom: vkbd.top
 
       height: 17
       width: 105
@@ -72,7 +71,27 @@ Rectangle {
 
       MouseArea {
           anchors.fill: parent
-          onClicked: toggleKeyboard(!isKeyboardVisible())
+	  drag.target: vkbd_btn
+	  drag.axis: Drag.XandYAxis
+	  drag.minimumX: 0
+	  drag.maximumX: geometry.width - width
+	  drag.minimumY: 0
+	  drag.maximumY: geometry.height - height
+	  onPressed:{
+	    if (!vkbd.loaded && !vkbd.broken){
+	      vkbd.load()
+	      if (vkbd.broken) return;
+	      else vkbd_state.visible = false
+	      if (vkbd.implicitWidth < geometry.width) vkbd.width = vkbd.implicitWidth
+	      else {
+		drag.axis = Drag.YAxis
+		vkbd_btn.x = 0
+		vkbd.width = geometry.width
+	      }
+	      if (vkbd.implicitHeight < geometry.height / 5) vkbd.height = vkbd.implicitHeight
+	      else vkbd.height = geometry.height / 5
+	    }
+	  }
       }
   }
 }

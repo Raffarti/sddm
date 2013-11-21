@@ -161,7 +161,6 @@ Rectangle {
                     font.pixelSize: 20
                 }
             }
-            
         }
 
         Rectangle {
@@ -226,15 +225,6 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.margins: 5
                 spacing: 5
-                ImageButton {
-                    id: btnKeyboard
-                    height: parent.height
-                    source: "keyboard.png"
-
-                    onClicked: toggleKeyboard(!isKeyboardVisible())
-
-                    KeyNavigation.backtab: layoutBox; KeyNavigation.tab: btnReboot
-                }
 
                 ImageButton {
                     id: btnReboot
@@ -245,7 +235,7 @@ Rectangle {
 
                     onClicked: sddm.reboot()
 
-                    KeyNavigation.backtab: btnKeyboard; KeyNavigation.tab: btnShutdown
+                    KeyNavigation.backtab: layoutBox; KeyNavigation.tab: btnShutdown
                 }
 
                 ImageButton {
