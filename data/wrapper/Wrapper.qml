@@ -58,12 +58,12 @@ Rectangle {
       color: "#000000"
 
       height: 17
-      width: 105
+      width: 170
 
       Text {
           color: "#ffffff"
           anchors.fill: parent
-          text: "Virtual Keyboard"
+          text: "Virtual Keyboard [pull me➚]"
           font.pixelSize: 12
           horizontalAlignment: Text.AlignJustify
           verticalAlignment: Text.AlignVCenter
