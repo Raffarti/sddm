@@ -49,48 +49,76 @@ Rectangle {
     }
   }
   
-  Rectangle {
+  
+  Item {
       visible: !config.hideDefaultKeyboardBtn
       id: vkbd_btn
 
       x: 0
       y: geometry.height - height
-      color: "#000000"
 
-      height: 17
-      width: 170
+      height: 35
+      width: 150
 
-      Text {
-          color: "#ffffff"
-          anchors.fill: parent
-          text: "Virtual Keyboard [pull me➚]"
-          font.pixelSize: 12
-          horizontalAlignment: Text.AlignJustify
-          verticalAlignment: Text.AlignVCenter
+      Rectangle {
+	  id: vkbd_btn_text
+	  anchors.left: vkbd_btn_drag_area.right
+	  anchors.bottom: parent.bottom
+	  anchors.right: parent.right
+	  height: 17
+	  color: "#80000000"
+	  Text {
+	      color: "#80ffffff"
+	      anchors.fill: parent
+	      text: "Virtual Keyboard"
+	      font.pixelSize: 12
+	      horizontalAlignment: Text.AlignHCenter
+	      verticalAlignment: Text.AlignVCenter
+	      font.capitalization: Font.SmallCaps
+	  }
       }
 
-      MouseArea {
-          anchors.fill: parent
-	  drag.target: vkbd_btn
-	  drag.axis: Drag.XandYAxis
-	  drag.minimumX: 0
-	  drag.maximumX: geometry.width - width
-	  drag.minimumY: 0
-	  drag.maximumY: geometry.height - height
-	  onPressed:{
-	    if (!vkbd.loaded && !vkbd.broken){
-	      vkbd.load()
-	      if (vkbd.broken) return;
-	      else vkbd_state.visible = false
-	      if (vkbd.implicitWidth < geometry.width) vkbd.width = vkbd.implicitWidth
-	      else {
-		drag.axis = Drag.YAxis
-		vkbd_btn.x = 0
-		vkbd.width = geometry.width
+      Rectangle{
+	  id: vkbd_btn_drag_area
+	  anchors.left: parent.left
+	  anchors.bottom: parent.bottom
+	  anchors.top: parent.top
+	  width: height
+	  color: "#80000000"
+	  
+	  Text{
+	      color: "#80ffffff"
+	      anchors.fill: parent
+	      font.pixelSize: 15
+	      text: "  ⇗\nPull "
+	      horizontalAlignment: Text.AlignHCenter
+	      verticalAlignment: Text.AlignVCenter
+	      font.capitalization: Font.SmallCaps
+	  }
+	  
+	  MouseArea {
+	      anchors.fill: parent
+	      drag.target: vkbd_btn
+	      drag.axis: Drag.XandYAxis
+	      drag.minimumX: 0
+	      drag.maximumX: geometry.width - vkbd_btn.width
+	      drag.minimumY: 0
+	      drag.maximumY: geometry.height - vkbd_btn.height
+	      onPressed:{
+		if (!vkbd.loaded && !vkbd.broken){
+		  vkbd.load()
+		  if (vkbd.broken) return;
+		  else vkbd_state.visible = false
+		  if (vkbd.implicitWidth < geometry.width) vkbd.width = vkbd.implicitWidth
+		  else {
+		    drag.axis = Drag.YAxis
+		    vkbd_btn.x = 0
+		    vkbd.width = geometry.width
+		  }
+		  if (vkbd.implicitHeight < geometry.height / 5) vkbd.height = vkbd.implicitHeight
+		  else vkbd.height = geometry.height / 5
+		}
 	      }
-	      if (vkbd.implicitHeight < geometry.height / 5) vkbd.height = vkbd.implicitHeight
-	      else vkbd.height = geometry.height / 5
-	    }
 	  }
       }
   }
